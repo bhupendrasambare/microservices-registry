@@ -1,0 +1,14 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: REGISTRY
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+#spring:
+#  cloud:
+#    compatibility-verifier:
+#      enabled: false
