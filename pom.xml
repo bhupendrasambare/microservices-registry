@@ -58,7 +58,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>bhupendra1404/microservice:registry</name>
+						<name>bhupendra1404/microservice:ms-registry</name>
 					</image>
 				</configuration>
 			</plugin>
