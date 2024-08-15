@@ -1,13 +1,46 @@
+custom:
+  server-ip: localhost
+
 server:
   port: 8761
 spring:
   application:
     name: REGISTRY
+  boot:
+    admin:
+      client:
+        url: http://${custom.server-ip}:8762
+        instance:
+          service-base-url: http://127.0.0.1:${server.port}
+          name: ${spring.application.name}
+
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    pause:
+      enabled: true
+    health:
+      show-details: always
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+    env:
+      enabled: true
 #spring:
 #  cloud:
 #    compatibility-verifier:
