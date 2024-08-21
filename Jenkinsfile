@@ -2,17 +2,19 @@ pipeline {
     agent any
 
     environment {
+        JAVA_HOME = "/Users/bhupendrasam1404/Library/Java/JavaVirtualMachines/jdk-22.0.1.jdk/Contents/Home"
         DOCKER_IMAGE = "bhupendra1404/microservice:ms-registry"
         CONTAINER_NAME = "ms-registry"
         DOCKER_PATH = '/usr/local/bin/docker'
         MAVEN_PATH = '/opt/homebrew/Cellar/maven/3.9.5/libexec/bin/mvn'
+        CUSTOM_SERVER_IP = '192.168.29.226'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:bhupendrasambare/microservices-registry.git'
+                git branch: 'main', url: 'https://github.com/bhupendrasambare/microservices-registry.git'
             }
         }
 
@@ -25,9 +27,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "ls"
-                    // Build the Docker image, disable image pulling
-                    sh "${DOCKER_PATH} build --pull=false --progress=plain -t ${DOCKER_IMAGE} ."
+                    // Build the Docker image using the standard build command
+                    sh "${DOCKER_PATH} build --no-cache -t ${DOCKER_IMAGE} ."
                 }
             }
         }
@@ -45,7 +46,7 @@ pipeline {
 
                     // Run the new container
                     sh """
-                    ${DOCKER_PATH} run -i -p 8761:8761 -d --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
+                    ${DOCKER_PATH} run -i -p 8761:8761 -d -e CUSTOM_SERVER_IP=${CUSTOM_SERVER_IP} --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
                     """
                 }
             }
