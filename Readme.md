@@ -21,7 +21,7 @@ This project provides a registry for managing microservices. It is built using J
 
 ### Prerequisites
 
-- **Java 17**
+- **Java 21**
 - **Docker**
 - **Maven>=3.8**
 - **PORT :** 8761
